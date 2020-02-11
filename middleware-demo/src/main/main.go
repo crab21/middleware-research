@@ -1,8 +1,9 @@
 package main
 
-import "crab.com/rbmq/queuemod"
+import "crab.com/encryptInfo/md5Mod"
 
 func main() {
 	//workmod.WorkStart()
-	queuemod.StartQueue()
+	//queuemod.StartQueue()
+	md5Mod.Md5_Start()
 }
