@@ -3,6 +3,7 @@ package workmod
 import (
 	"github.com/streadway/amqp"
 	"log"
+	"time"
 )
 
 func StartReceiver() {
@@ -20,13 +21,16 @@ func StartReceiver() {
 	failOnError(err, "Failed to declare a queue")
 
 
-	consume, err := ch.Consume(declare.Name, "", true, false, false, false, nil)
+	consume, err := ch.Consume(declare.Name, "", false, false, false, false, nil)
 	failOnError(err, "Failed to register a consumer")
 
 	forever := make(chan bool)
 
 	go func() {
 		for d:=range consume {
+
+			time.Sleep(10*time.Second)
+			d.Ack(false)
 			log.Printf("Received a message: %s", d.Body)
 		}
 	}()

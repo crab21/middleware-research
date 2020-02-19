@@ -19,15 +19,18 @@ func StartSendRBMQ() {
 	failOnError(err, "Failed to declare a queue")
 
 	body := "Hello World!"
-	for {
+	//for {
 		ch.Publish("",declare.Name,false,false,amqp.Publishing{
 
 			ContentType:     "text/plain",
 			Body:            []byte(body),
 		})
-		time.Sleep(100*time.Millisecond)
-	}
+		time.Sleep(10*time.Millisecond)
+	//}
 	failOnError(err, "Failed to publish a message")
+	select {
+
+	}
 
 }
 func failOnError(err error, msg string) {
