@@ -1,15 +1,19 @@
 {
     "go.inferGopath": false,
+    // go module-->on  go.gopath失效
     "go.gopath": "/Users/k/learn/middleware-research/middleware-demo",
-    "go.docsTool": "gogetdoc",
+    
     "go.formatTool": "goformat",
+
+    "go.toolsEnvVars": {
+        "GO111MODULE": "on",
+        "GOPATH": "/Users/k/learn/middleware-research/middleware-demo",
+    },
     "go.alternateTools": {
         "go-langserver": "gopls",
     },
-    "go.toolsEnvVars": {
-        "GO111MODULE":"on",
-    },
-    
+    "go.docsTool": "gogetdoc",
+    "go.lintFlags": [],
     // "go.languageServerFlags": [
     // "serve",
     // "-rpc.trace",
