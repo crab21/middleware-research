@@ -2,5 +2,24 @@
     "go.inferGopath": false,
     "go.gopath": "/Users/k/learn/middleware-research/middleware-demo",
     "go.docsTool": "gogetdoc",
-    "go.formatTool": "goformat"
+    "go.formatTool": "goformat",
+    "go.alternateTools": {
+        "go-langserver": "gopls",
+    },
+    "go.toolsEnvVars": {
+        "GO111MODULE":"on",
+    },
+    
+    // "go.languageServerFlags": [
+    // "serve",
+    // "-rpc.trace",
+    // "--debug=localhost:6060",
+    // ],
+    "gopls": {
+        // Add parameter placeholders when completing a function.
+        "usePlaceholders": true,
+        // If true, enable additional analyses with staticcheck.
+        // Warning: This will significantly increase memory usage.
+        "staticcheck": false,
+    },
 }
