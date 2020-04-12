@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	},
+	"go.inferGopath": true,
+    "go.gopath": "/Users/k/learn/middleware-research/middleware-demo;/Users/k/go",
+    "go.docsTool": "gogetdoc",
+    "go.formatTool": "goformat"
+}

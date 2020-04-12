@@ -2,11 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1cf5c4aa-624f-4b94-8d77-62ac43f357e0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/crab.com/encryptInfo/go.mod" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/crab.com/encryptInfo/md5Mod/md5_compare.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/crab.com/encryptInfo/md5Mod/md5_start.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/mod/github.com/cncf/udpa/go@v0.0.0-20191209042840-269d4d468f6f/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/mod/github.com/envoyproxy/go-control-plane@v0.9.4/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/mod/github.com/golang/protobuf@v1.3.5/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/mod/github.com/prometheus/client_model@v0.0.0-20190812154241-14fe0d1b01d4/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/mod/golang.org/x/crypto@v0.0.0-20190308221718-c2843e01d9a2/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/mod/golang.org/x/lint@v0.0.0-20190313153728-d0100b6bd8b3/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/mod/golang.org/x/net@v0.0.0-20190311183353-d8887717615a/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/mod/golang.org/x/sync@v0.0.0-20190423024810-112230192c58/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/mod/golang.org/x/tools@v0.0.0-20190524140312-2c0ae7006135/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/mod/google.golang.org/appengine@v1.4.0/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/mod/google.golang.org/genproto@v0.0.0-20190819201941-24fa4b261c55/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pkg/mod/google.golang.org/grpc@v1.28.1/go.mod" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/crab.com/rpcl/grpcl/grpc_server.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/crab.com/rpcl/grpcl/grpc_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/crab.com/rpcl/grpcl/helloworld.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/middleware-demo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/middleware-demo.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/sumdb/sum.golang.org/latest" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/sumdb/sum.golang.org/latest" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/crab.com/rbmq/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/src/crab.com/rbmq/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/main.go" afterDir="false" />
     </list>
@@ -58,7 +72,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
+    <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -69,7 +83,7 @@
       <recent name="$PROJECT_DIR$/src" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Go Test.BenchmarkGrpcClient in crab.com/rpcl/grpcl">
     <configuration name="go build main" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="middleware-demo" />
       <working_directory value="$PROJECT_DIR$/" />
@@ -79,9 +93,33 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+    <configuration name="BenchmarkGrpcClient in crab.com/rpcl/grpcl" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="middleware-demo" />
+      <working_directory value="$PROJECT_DIR$/src/crab.com/rpcl/grpcl" />
+      <framework value="gobench" />
+      <kind value="PACKAGE" />
+      <package value="crab.com/rpcl/grpcl" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^BenchmarkGrpcClient$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestGrpcClient in crab.com/rpcl/grpcl" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="middleware-demo" />
+      <working_directory value="$PROJECT_DIR$/src/crab.com/rpcl/grpcl" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="crab.com/rpcl/grpcl" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestGrpcClient$" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.BenchmarkGrpcClient in crab.com/rpcl/grpcl" />
         <item itemvalue="Go Build.go build main" />
+        <item itemvalue="Go Test.TestGrpcClient in crab.com/rpcl/grpcl" />
       </list>
     </recent_temporary>
   </component>
@@ -93,40 +131,45 @@
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
+    <proxy>https://goproxy.io</proxy>
   </component>
   <component name="WindowStateProjectService">
     <state x="453" y="260" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1581311499567">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="453" y="260" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.900@0.0.1440.900" timestamp="1581311499567" />
-    <state width="1398" height="379" key="GridCell.Tab.0.bottom" timestamp="1581412714348">
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom" timestamp="1586669760618">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="379" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1581412714348" />
-    <state width="1398" height="379" key="GridCell.Tab.0.center" timestamp="1581412714347">
+    <state width="1398" height="245" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1586669760618" />
+    <state width="1398" height="245" key="GridCell.Tab.0.center" timestamp="1586669760618">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="379" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1581412714347" />
-    <state width="1398" height="379" key="GridCell.Tab.0.left" timestamp="1581412714345">
+    <state width="1398" height="245" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1586669760618" />
+    <state width="1398" height="245" key="GridCell.Tab.0.left" timestamp="1586669760617">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="379" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1581412714345" />
-    <state width="1398" height="379" key="GridCell.Tab.0.right" timestamp="1581412714347">
+    <state width="1398" height="245" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1586669760617" />
+    <state width="1398" height="245" key="GridCell.Tab.0.right" timestamp="1586669760618">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1398" height="379" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1581412714347" />
-    <state x="229" y="89" key="SettingsEditor" timestamp="1581315819316">
+    <state width="1398" height="245" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1586669760618" />
+    <state x="229" y="89" key="SettingsEditor" timestamp="1586665819524">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="229" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1581315819316" />
+    <state x="229" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1586665819524" />
+    <state x="383" y="214" width="673" height="472" key="find.popup" timestamp="1586665916379">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="383" y="214" width="673" height="472" key="find.popup/0.0.1440.900@0.0.1440.900" timestamp="1586665916379" />
     <state width="493" height="319" key="javadoc.popup.new" timestamp="1581412648583">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="493" height="319" key="javadoc.popup.new/0.0.1440.900@0.0.1440.900" timestamp="1581412648583" />
     <state width="493" height="471" key="javadoc.popup.new/0.23.1440.820@0.23.1440.820" timestamp="1581412327191" />
-    <state x="385" y="196" key="search.everywhere.popup" timestamp="1581311661834">
+    <state x="385" y="196" key="search.everywhere.popup" timestamp="1586669115135">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="385" y="196" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1581311661834" />
+    <state x="385" y="196" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1586669115135" />
   </component>
 </project>
