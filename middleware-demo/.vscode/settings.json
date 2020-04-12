@@ -1,6 +1,6 @@
 {
     "go.inferGopath": false,
-    "go.gopath": "/Users/k/learn/middleware-research/middleware-demo;/Users/k/go",
+    "go.gopath": "/Users/k/learn/middleware-research/middleware-demo",
     "go.docsTool": "gogetdoc",
     "go.formatTool": "goformat"
 }
