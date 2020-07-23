@@ -546,7 +546,7 @@ func TestAPI_ACLToken_List(t *testing.T) {
 
 	tokens, qm, err := acl.TokenList(nil)
 	require.NoError(t, err)
-	// 3 + anon + master
+	// 3 + anon + main
 	require.Len(t, tokens, 5)
 	require.NotEqual(t, 0, qm.LastIndex)
 	require.True(t, qm.KnownLeader)
@@ -588,7 +588,7 @@ func TestAPI_ACLToken_List(t *testing.T) {
 	require.True(t, ok)
 	require.NotNil(t, token4)
 
-	// ensure the 5th token is the root master token
+	// ensure the 5th token is the root main token
 	root, _, err := acl.TokenReadSelf(nil)
 	require.NoError(t, err)
 	require.NotNil(t, root)
@@ -604,17 +604,17 @@ func TestAPI_ACLToken_Clone(t *testing.T) {
 
 	acl := c.ACL()
 
-	master, _, err := acl.TokenReadSelf(nil)
+	main, _, err := acl.TokenReadSelf(nil)
 	require.NoError(t, err)
-	require.NotNil(t, master)
+	require.NotNil(t, main)
 
-	cloned, _, err := acl.TokenClone(master.AccessorID, "cloned", nil)
+	cloned, _, err := acl.TokenClone(main.AccessorID, "cloned", nil)
 	require.NoError(t, err)
 	require.NotNil(t, cloned)
-	require.NotEqual(t, master.AccessorID, cloned.AccessorID)
-	require.NotEqual(t, master.SecretID, cloned.SecretID)
+	require.NotEqual(t, main.AccessorID, cloned.AccessorID)
+	require.NotEqual(t, main.SecretID, cloned.SecretID)
 	require.Equal(t, "cloned", cloned.Description)
-	require.ElementsMatch(t, master.Policies, cloned.Policies)
+	require.ElementsMatch(t, main.Policies, cloned.Policies)
 
 	read, _, err := acl.TokenRead(cloned.AccessorID, nil)
 	require.NoError(t, err)

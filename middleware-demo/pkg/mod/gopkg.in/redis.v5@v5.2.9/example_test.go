@@ -39,7 +39,7 @@ func ExampleNewFailoverClient() {
 	// See http://redis.io/topics/sentinel for instructions how to
 	// setup Redis Sentinel.
 	client := redis.NewFailoverClient(&redis.FailoverOptions{
-		MasterName:    "master",
+		MainName:    "main",
 		SentinelAddrs: []string{":26379"},
 	})
 	client.Ping()

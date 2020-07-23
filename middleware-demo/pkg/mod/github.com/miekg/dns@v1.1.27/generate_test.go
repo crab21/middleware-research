@@ -29,40 +29,40 @@ func TestGenerateRangeGuard(t *testing.T) {
 		zone string
 		fail bool
 	}{
-		{`@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+		{`@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 0-1 dhcp-${0,4,d} A 10.0.0.$
 `, false},
-		{`@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+		{`@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 0-1 dhcp-${0,0,x} A 10.0.0.$
 `, false},
-		{`@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+		{`@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 128-129 dhcp-${-128,4,d} A 10.0.0.$
 `, false},
-		{`@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+		{`@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 128-129 dhcp-${-129,4,d} A 10.0.0.$
 `, true},
-		{`@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+		{`@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 0-2 dhcp-${2147483647,4,d} A 10.0.0.$
 `, true},
-		{`@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+		{`@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 0-1 dhcp-${2147483646,4,d} A 10.0.0.$
 `, false},
-		{`@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+		{`@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 0-1/step dhcp-${0,4,d} A 10.0.0.$
 `, true},
-		{`@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+		{`@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 0-1/ dhcp-${0,4,d} A 10.0.0.$
 `, true},
-		{`@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+		{`@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 0-10/2 dhcp-${0,4,d} A 10.0.0.$
 `, false},
-		{`@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+		{`@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 0-1/0 dhcp-${0,4,d} A 10.0.0.$
 `, true},
-		{`@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+		{`@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 0-1 $$INCLUDE ` + tmpdir + string(filepath.Separator) + `${0,4,d}.conf
 `, false},
-{`@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+{`@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 0-1 dhcp-${0,4,d} A 10.0.0.$
 $GENERATE 0-2 dhcp-${0,4,d} A 10.1.0.$
 `, false},
@@ -90,7 +90,7 @@ func TestGenerateIncludeDepth(t *testing.T) {
 	}
 	defer os.Remove(tmpfile.Name())
 
-	zone := `@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+	zone := `@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 0-1 $$INCLUDE ` + tmpfile.Name() + `
 `
 	if _, err := tmpfile.WriteString(zone); err != nil {
@@ -113,7 +113,7 @@ $GENERATE 0-1 $$INCLUDE ` + tmpfile.Name() + `
 }
 
 func TestGenerateIncludeDisallowed(t *testing.T) {
-	const zone = `@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+	const zone = `@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 0-1 $$INCLUDE test.conf
 `
 	zp := NewZoneParser(strings.NewReader(zone), ".", "")
@@ -128,7 +128,7 @@ $GENERATE 0-1 $$INCLUDE test.conf
 }
 
 func TestGenerateSurfacesErrors(t *testing.T) {
-	const zone = `@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+	const zone = `@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 0-1 dhcp-${0,4,dd} A 10.0.0.$
 `
 	zp := NewZoneParser(strings.NewReader(zone), ".", "test")
@@ -143,7 +143,7 @@ $GENERATE 0-1 dhcp-${0,4,dd} A 10.0.0.$
 }
 
 func TestGenerateSurfacesLexerErrors(t *testing.T) {
-	const zone = `@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+	const zone = `@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 0-1 dhcp-${0,4,d} A 10.0.0.$ )
 `
 	zp := NewZoneParser(strings.NewReader(zone), ".", "test")
@@ -193,7 +193,7 @@ func TestGenerateModToPrintf(t *testing.T) {
 }
 
 func BenchmarkGenerate(b *testing.B) {
-	const zone = `@ IN SOA ns.test. hostmaster.test. ( 1 8h 2h 7d 1d )
+	const zone = `@ IN SOA ns.test. hostmain.test. ( 1 8h 2h 7d 1d )
 $GENERATE 32-158 dhcp-${-32,4,d} A 10.0.0.$
 `
 

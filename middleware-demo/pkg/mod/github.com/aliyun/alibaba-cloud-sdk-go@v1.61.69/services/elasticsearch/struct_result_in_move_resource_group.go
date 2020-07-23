@@ -33,7 +33,7 @@ type ResultInMoveResourceGroup struct {
 	NodeSpec            NodeSpec            `json:"nodeSpec" xml:"nodeSpec"`
 	NetworkConfig       NetworkConfig       `json:"networkConfig" xml:"networkConfig"`
 	KibanaConfiguration KibanaConfiguration `json:"kibanaConfiguration" xml:"kibanaConfiguration"`
-	MasterConfiguration MasterConfiguration `json:"masterConfiguration" xml:"masterConfiguration"`
+	MainConfiguration MainConfiguration `json:"mainConfiguration" xml:"mainConfiguration"`
 	DictList            []DictListItem      `json:"dictList" xml:"dictList"`
 	SynonymsDicts       []SynonymsDictsItem `json:"synonymsDicts" xml:"synonymsDicts"`
 }

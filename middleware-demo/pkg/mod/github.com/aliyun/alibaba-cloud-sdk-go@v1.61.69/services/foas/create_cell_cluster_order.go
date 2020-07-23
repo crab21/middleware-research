@@ -77,11 +77,11 @@ func (client *Client) CreateCellClusterOrderWithCallback(request *CreateCellClus
 type CreateCellClusterOrderRequest struct {
 	*requests.RoaRequest
 	Period     requests.Integer `position:"Body" name:"period"`
-	SlaveNum   requests.Integer `position:"Body" name:"slaveNum"`
-	SlaveSpec  string           `position:"Body" name:"slaveSpec"`
+	SubordinateNum   requests.Integer `position:"Body" name:"subordinateNum"`
+	SubordinateSpec  string           `position:"Body" name:"subordinateSpec"`
 	Region     string           `position:"Body" name:"region"`
-	MasterNum  requests.Integer `position:"Body" name:"masterNum"`
-	MasterSpec string           `position:"Body" name:"masterSpec"`
+	MainNum  requests.Integer `position:"Body" name:"mainNum"`
+	MainSpec string           `position:"Body" name:"mainSpec"`
 	PayModel   string           `position:"Body" name:"payModel"`
 }
 

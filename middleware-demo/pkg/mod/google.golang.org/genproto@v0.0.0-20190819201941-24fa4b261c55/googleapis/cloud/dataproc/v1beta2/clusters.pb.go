@@ -280,8 +280,8 @@ type ClusterConfig struct {
 	// all instances in a cluster.
 	GceClusterConfig *GceClusterConfig `protobuf:"bytes,8,opt,name=gce_cluster_config,json=gceClusterConfig,proto3" json:"gce_cluster_config,omitempty"`
 	// Optional. The Compute Engine config settings for
-	// the master instance in a cluster.
-	MasterConfig *InstanceGroupConfig `protobuf:"bytes,9,opt,name=master_config,json=masterConfig,proto3" json:"master_config,omitempty"`
+	// the main instance in a cluster.
+	MainConfig *InstanceGroupConfig `protobuf:"bytes,9,opt,name=main_config,json=mainConfig,proto3" json:"main_config,omitempty"`
 	// Optional. The Compute Engine config settings for
 	// worker instances in a cluster.
 	WorkerConfig *InstanceGroupConfig `protobuf:"bytes,10,opt,name=worker_config,json=workerConfig,proto3" json:"worker_config,omitempty"`
@@ -293,15 +293,15 @@ type ClusterConfig struct {
 	// Optional. The config setting for auto delete cluster schedule.
 	LifecycleConfig *LifecycleConfig `protobuf:"bytes,14,opt,name=lifecycle_config,json=lifecycleConfig,proto3" json:"lifecycle_config,omitempty"`
 	// Optional. Commands to execute on each node after config is
-	// completed. By default, executables are run on master and all worker nodes.
+	// completed. By default, executables are run on main and all worker nodes.
 	// You can test a node's <code>role</code> metadata to run an executable on
-	// a master or worker node, as shown below using `curl` (you can also use
+	// a main or worker node, as shown below using `curl` (you can also use
 	// `wget`):
 	//
 	//     ROLE=$(curl -H Metadata-Flavor:Google
 	//     http://metadata/computeMetadata/v1beta2/instance/attributes/dataproc-role)
-	//     if [[ "${ROLE}" == 'Master' ]]; then
-	//       ... master specific actions ...
+	//     if [[ "${ROLE}" == 'Main' ]]; then
+	//       ... main specific actions ...
 	//     else
 	//       ... worker specific actions ...
 	//     fi
@@ -359,9 +359,9 @@ func (m *ClusterConfig) GetGceClusterConfig() *GceClusterConfig {
 	return nil
 }
 
-func (m *ClusterConfig) GetMasterConfig() *InstanceGroupConfig {
+func (m *ClusterConfig) GetMainConfig() *InstanceGroupConfig {
 	if m != nil {
-		return m.MasterConfig
+		return m.MainConfig
 	}
 	return nil
 }
@@ -745,10 +745,10 @@ func (m *GceClusterConfig) GetReservationAffinity() *ReservationAffinity {
 }
 
 // Optional. The config settings for Compute Engine resources in
-// an instance group, such as a master or worker group.
+// an instance group, such as a main or worker group.
 type InstanceGroupConfig struct {
 	// Optional. The number of VM instances in the instance group.
-	// For master instance groups, must be set to 1.
+	// For main instance groups, must be set to 1.
 	NumInstances int32 `protobuf:"varint,1,opt,name=num_instances,json=numInstances,proto3" json:"num_instances,omitempty"`
 	// Output only. The list of instance names. Cloud Dataproc derives the names
 	// from `cluster_name`, `num_instances`, and the instance group.
@@ -1248,7 +1248,7 @@ type KerberosConfig struct {
 	// trusted realm, in a cross realm trust relationship.
 	CrossRealmTrustSharedPasswordUri string `protobuf:"bytes,12,opt,name=cross_realm_trust_shared_password_uri,json=crossRealmTrustSharedPasswordUri,proto3" json:"cross_realm_trust_shared_password_uri,omitempty"`
 	// Optional. The Cloud Storage URI of a KMS encrypted file containing the
-	// master key of the KDC database.
+	// main key of the KDC database.
 	KdcDbKeyUri string `protobuf:"bytes,13,opt,name=kdc_db_key_uri,json=kdcDbKeyUri,proto3" json:"kdc_db_key_uri,omitempty"`
 	// Optional. The lifetime of the ticket granting ticket, in hours.
 	// If not specified, or user specifies 0, then default value 10

@@ -125,7 +125,7 @@ const (
 	FailoverInstanceRequest_DATA_PROTECTION_MODE_UNSPECIFIED FailoverInstanceRequest_DataProtectionMode = 0
 	// Instance failover will be protected with data loss control. More
 	// specifically, the failover will only be performed if the current
-	// replication offset diff between master and replica is under a certain
+	// replication offset diff between main and replica is under a certain
 	// threshold.
 	FailoverInstanceRequest_LIMITED_DATA_LOSS FailoverInstanceRequest_DataProtectionMode = 1
 	// Instance failover will be performed without data loss control.
@@ -1395,7 +1395,7 @@ type CloudRedisClient interface {
 	// The returned operation is automatically deleted after a few hours, so
 	// there is no need to call DeleteOperation.
 	ExportInstance(ctx context.Context, in *ExportInstanceRequest, opts ...grpc.CallOption) (*longrunning.Operation, error)
-	// Initiates a failover of the master node to current replica node for a
+	// Initiates a failover of the main node to current replica node for a
 	// specific STANDARD tier Cloud Memorystore for Redis instance.
 	FailoverInstance(ctx context.Context, in *FailoverInstanceRequest, opts ...grpc.CallOption) (*longrunning.Operation, error)
 	// Deletes a specific Redis instance.  Instance stops serving and data is
@@ -1531,7 +1531,7 @@ type CloudRedisServer interface {
 	// The returned operation is automatically deleted after a few hours, so
 	// there is no need to call DeleteOperation.
 	ExportInstance(context.Context, *ExportInstanceRequest) (*longrunning.Operation, error)
-	// Initiates a failover of the master node to current replica node for a
+	// Initiates a failover of the main node to current replica node for a
 	// specific STANDARD tier Cloud Memorystore for Redis instance.
 	FailoverInstance(context.Context, *FailoverInstanceRequest) (*longrunning.Operation, error)
 	// Deletes a specific Redis instance.  Instance stops serving and data is

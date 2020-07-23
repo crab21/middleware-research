@@ -20,24 +20,24 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/responses"
 )
 
-// CreateMasterSlaveServerGroup invokes the slb.CreateMasterSlaveServerGroup API synchronously
+// CreateMainSubordinateServerGroup invokes the slb.CreateMainSubordinateServerGroup API synchronously
 // api document: https://help.aliyun.com/api/slb/createmasterslaveservergroup.html
-func (client *Client) CreateMasterSlaveServerGroup(request *CreateMasterSlaveServerGroupRequest) (response *CreateMasterSlaveServerGroupResponse, err error) {
-	response = CreateCreateMasterSlaveServerGroupResponse()
+func (client *Client) CreateMainSubordinateServerGroup(request *CreateMainSubordinateServerGroupRequest) (response *CreateMainSubordinateServerGroupResponse, err error) {
+	response = CreateCreateMainSubordinateServerGroupResponse()
 	err = client.DoAction(request, response)
 	return
 }
 
-// CreateMasterSlaveServerGroupWithChan invokes the slb.CreateMasterSlaveServerGroup API asynchronously
+// CreateMainSubordinateServerGroupWithChan invokes the slb.CreateMainSubordinateServerGroup API asynchronously
 // api document: https://help.aliyun.com/api/slb/createmasterslaveservergroup.html
 // asynchronous document: https://help.aliyun.com/document_detail/66220.html
-func (client *Client) CreateMasterSlaveServerGroupWithChan(request *CreateMasterSlaveServerGroupRequest) (<-chan *CreateMasterSlaveServerGroupResponse, <-chan error) {
-	responseChan := make(chan *CreateMasterSlaveServerGroupResponse, 1)
+func (client *Client) CreateMainSubordinateServerGroupWithChan(request *CreateMainSubordinateServerGroupRequest) (<-chan *CreateMainSubordinateServerGroupResponse, <-chan error) {
+	responseChan := make(chan *CreateMainSubordinateServerGroupResponse, 1)
 	errChan := make(chan error, 1)
 	err := client.AddAsyncTask(func() {
 		defer close(responseChan)
 		defer close(errChan)
-		response, err := client.CreateMasterSlaveServerGroup(request)
+		response, err := client.CreateMainSubordinateServerGroup(request)
 		if err != nil {
 			errChan <- err
 		} else {
@@ -52,16 +52,16 @@ func (client *Client) CreateMasterSlaveServerGroupWithChan(request *CreateMaster
 	return responseChan, errChan
 }
 
-// CreateMasterSlaveServerGroupWithCallback invokes the slb.CreateMasterSlaveServerGroup API asynchronously
+// CreateMainSubordinateServerGroupWithCallback invokes the slb.CreateMainSubordinateServerGroup API asynchronously
 // api document: https://help.aliyun.com/api/slb/createmasterslaveservergroup.html
 // asynchronous document: https://help.aliyun.com/document_detail/66220.html
-func (client *Client) CreateMasterSlaveServerGroupWithCallback(request *CreateMasterSlaveServerGroupRequest, callback func(response *CreateMasterSlaveServerGroupResponse, err error)) <-chan int {
+func (client *Client) CreateMainSubordinateServerGroupWithCallback(request *CreateMainSubordinateServerGroupRequest, callback func(response *CreateMainSubordinateServerGroupResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
-		var response *CreateMasterSlaveServerGroupResponse
+		var response *CreateMainSubordinateServerGroupResponse
 		var err error
 		defer close(result)
-		response, err = client.CreateMasterSlaveServerGroup(request)
+		response, err = client.CreateMainSubordinateServerGroup(request)
 		callback(response, err)
 		result <- 1
 	})
@@ -73,40 +73,40 @@ func (client *Client) CreateMasterSlaveServerGroupWithCallback(request *CreateMa
 	return result
 }
 
-// CreateMasterSlaveServerGroupRequest is the request struct for api CreateMasterSlaveServerGroup
-type CreateMasterSlaveServerGroupRequest struct {
+// CreateMainSubordinateServerGroupRequest is the request struct for api CreateMainSubordinateServerGroup
+type CreateMainSubordinateServerGroupRequest struct {
 	*requests.RpcRequest
 	AccessKeyId                string           `position:"Query" name:"access_key_id"`
 	ResourceOwnerId            requests.Integer `position:"Query" name:"ResourceOwnerId"`
-	MasterSlaveBackendServers  string           `position:"Query" name:"MasterSlaveBackendServers"`
+	MainSubordinateBackendServers  string           `position:"Query" name:"MainSubordinateBackendServers"`
 	ResourceOwnerAccount       string           `position:"Query" name:"ResourceOwnerAccount"`
 	OwnerAccount               string           `position:"Query" name:"OwnerAccount"`
-	MasterSlaveServerGroupName string           `position:"Query" name:"MasterSlaveServerGroupName"`
+	MainSubordinateServerGroupName string           `position:"Query" name:"MainSubordinateServerGroupName"`
 	OwnerId                    requests.Integer `position:"Query" name:"OwnerId"`
 	Tags                       string           `position:"Query" name:"Tags"`
 	LoadBalancerId             string           `position:"Query" name:"LoadBalancerId"`
 }
 
-// CreateMasterSlaveServerGroupResponse is the response struct for api CreateMasterSlaveServerGroup
-type CreateMasterSlaveServerGroupResponse struct {
+// CreateMainSubordinateServerGroupResponse is the response struct for api CreateMainSubordinateServerGroup
+type CreateMainSubordinateServerGroupResponse struct {
 	*responses.BaseResponse
 	RequestId                 string                                                  `json:"RequestId" xml:"RequestId"`
-	MasterSlaveServerGroupId  string                                                  `json:"MasterSlaveServerGroupId" xml:"MasterSlaveServerGroupId"`
-	MasterSlaveBackendServers MasterSlaveBackendServersInCreateMasterSlaveServerGroup `json:"MasterSlaveBackendServers" xml:"MasterSlaveBackendServers"`
+	MainSubordinateServerGroupId  string                                                  `json:"MainSubordinateServerGroupId" xml:"MainSubordinateServerGroupId"`
+	MainSubordinateBackendServers MainSubordinateBackendServersInCreateMainSubordinateServerGroup `json:"MainSubordinateBackendServers" xml:"MainSubordinateBackendServers"`
 }
 
-// CreateCreateMasterSlaveServerGroupRequest creates a request to invoke CreateMasterSlaveServerGroup API
-func CreateCreateMasterSlaveServerGroupRequest() (request *CreateMasterSlaveServerGroupRequest) {
-	request = &CreateMasterSlaveServerGroupRequest{
+// CreateCreateMainSubordinateServerGroupRequest creates a request to invoke CreateMainSubordinateServerGroup API
+func CreateCreateMainSubordinateServerGroupRequest() (request *CreateMainSubordinateServerGroupRequest) {
+	request = &CreateMainSubordinateServerGroupRequest{
 		RpcRequest: &requests.RpcRequest{},
 	}
-	request.InitWithApiInfo("Slb", "2014-05-15", "CreateMasterSlaveServerGroup", "slb", "openAPI")
+	request.InitWithApiInfo("Slb", "2014-05-15", "CreateMainSubordinateServerGroup", "slb", "openAPI")
 	return
 }
 
-// CreateCreateMasterSlaveServerGroupResponse creates a response to parse from CreateMasterSlaveServerGroup response
-func CreateCreateMasterSlaveServerGroupResponse() (response *CreateMasterSlaveServerGroupResponse) {
-	response = &CreateMasterSlaveServerGroupResponse{
+// CreateCreateMainSubordinateServerGroupResponse creates a response to parse from CreateMainSubordinateServerGroup response
+func CreateCreateMainSubordinateServerGroupResponse() (response *CreateMainSubordinateServerGroupResponse) {
+	response = &CreateMainSubordinateServerGroupResponse{
 		BaseResponse: &responses.BaseResponse{},
 	}
 	return

@@ -23,7 +23,7 @@ type clusterScenario struct {
 	clients   map[string]*redis.Client
 }
 
-func (s *clusterScenario) masters() []*redis.Client {
+func (s *clusterScenario) mains() []*redis.Client {
 	result := make([]*redis.Client, 3)
 	for pos, port := range s.ports[:3] {
 		result[pos] = s.clients[port]
@@ -31,7 +31,7 @@ func (s *clusterScenario) masters() []*redis.Client {
 	return result
 }
 
-func (s *clusterScenario) slaves() []*redis.Client {
+func (s *clusterScenario) subordinates() []*redis.Client {
 	result := make([]*redis.Client, 3)
 	for pos, port := range s.ports[3:] {
 		result[pos] = s.clients[port]
@@ -78,23 +78,23 @@ func startCluster(scenario *clusterScenario) error {
 		}
 	}
 
-	// Bootstrap masters
+	// Bootstrap mains
 	slots := []int{0, 5000, 10000, 16384}
-	for pos, master := range scenario.masters() {
-		err := master.ClusterAddSlotsRange(slots[pos], slots[pos+1]-1).Err()
+	for pos, main := range scenario.mains() {
+		err := main.ClusterAddSlotsRange(slots[pos], slots[pos+1]-1).Err()
 		if err != nil {
 			return err
 		}
 	}
 
-	// Bootstrap slaves
-	for idx, slave := range scenario.slaves() {
-		masterId := scenario.nodeIds[idx]
+	// Bootstrap subordinates
+	for idx, subordinate := range scenario.subordinates() {
+		mainId := scenario.nodeIds[idx]
 
-		// Wait until master is available
+		// Wait until main is available
 		err := eventually(func() error {
-			s := slave.ClusterNodes().Val()
-			wanted := masterId
+			s := subordinate.ClusterNodes().Val()
+			wanted := mainId
 			if !strings.Contains(s, wanted) {
 				return fmt.Errorf("%q does not contain %q", s, wanted)
 			}
@@ -104,7 +104,7 @@ func startCluster(scenario *clusterScenario) error {
 			return err
 		}
 
-		err = slave.ClusterReplicate(masterId).Err()
+		err = subordinate.ClusterReplicate(mainId).Err()
 		if err != nil {
 			return err
 		}
@@ -234,9 +234,9 @@ var _ = Describe("ClusterClient", func() {
 		})
 
 		It("should CLUSTER SLAVES", func() {
-			nodesList, err := client.ClusterSlaves(cluster.nodeIds[0]).Result()
+			nodesList, err := client.ClusterSubordinates(cluster.nodeIds[0]).Result()
 			Expect(err).NotTo(HaveOccurred())
-			Expect(nodesList).Should(ContainElement(ContainSubstring("slave")))
+			Expect(nodesList).Should(ContainElement(ContainSubstring("subordinate")))
 			Expect(nodesList).Should(HaveLen(1))
 		})
 
@@ -307,8 +307,8 @@ var _ = Describe("ClusterClient", func() {
 			}
 
 			wanted := []string{"keys=31", "keys=29", "keys=40"}
-			for i, master := range cluster.masters() {
-				Expect(master.Info().Val()).To(ContainSubstring(wanted[i]))
+			for i, main := range cluster.mains() {
+				Expect(main.Info().Val()).To(ContainSubstring(wanted[i]))
 			}
 		})
 
@@ -326,8 +326,8 @@ var _ = Describe("ClusterClient", func() {
 			}
 
 			wanted := []string{"keys=31", "keys=29", "keys=40"}
-			for i, master := range cluster.masters() {
-				Expect(master.Info().Val()).To(ContainSubstring(wanted[i]))
+			for i, main := range cluster.mains() {
+				Expect(main.Info().Val()).To(ContainSubstring(wanted[i]))
 			}
 		})
 
@@ -467,17 +467,17 @@ var _ = Describe("ClusterClient", func() {
 			})
 		})
 
-		It("calls fn for every master node", func() {
+		It("calls fn for every main node", func() {
 			for i := 0; i < 10; i++ {
 				Expect(client.Set(strconv.Itoa(i), "", 0).Err()).NotTo(HaveOccurred())
 			}
 
-			err := client.ForEachMaster(func(master *redis.Client) error {
-				return master.FlushDb().Err()
+			err := client.ForEachMain(func(main *redis.Client) error {
+				return main.FlushDb().Err()
 			})
 			Expect(err).NotTo(HaveOccurred())
 
-			for _, client := range cluster.masters() {
+			for _, client := range cluster.mains() {
 				keys, err := client.Keys("*").Result()
 				Expect(err).NotTo(HaveOccurred())
 				Expect(keys).To(HaveLen(0))
@@ -490,8 +490,8 @@ var _ = Describe("ClusterClient", func() {
 			opt = redisClusterOptions()
 			client = cluster.clusterClient(opt)
 
-			_ = client.ForEachMaster(func(master *redis.Client) error {
-				return master.FlushDb().Err()
+			_ = client.ForEachMain(func(main *redis.Client) error {
+				return main.FlushDb().Err()
 			})
 		})
 
@@ -508,8 +508,8 @@ var _ = Describe("ClusterClient", func() {
 			opt.RouteByLatency = true
 			client = cluster.clusterClient(opt)
 
-			_ = client.ForEachMaster(func(master *redis.Client) error {
-				return master.FlushDb().Err()
+			_ = client.ForEachMain(func(main *redis.Client) error {
+				return main.FlushDb().Err()
 			})
 		})
 

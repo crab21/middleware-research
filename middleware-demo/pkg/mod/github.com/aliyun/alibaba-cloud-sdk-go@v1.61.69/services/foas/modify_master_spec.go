@@ -20,24 +20,24 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/responses"
 )
 
-// ModifyMasterSpec invokes the foas.ModifyMasterSpec API synchronously
+// ModifyMainSpec invokes the foas.ModifyMainSpec API synchronously
 // api document: https://help.aliyun.com/api/foas/modifymasterspec.html
-func (client *Client) ModifyMasterSpec(request *ModifyMasterSpecRequest) (response *ModifyMasterSpecResponse, err error) {
-	response = CreateModifyMasterSpecResponse()
+func (client *Client) ModifyMainSpec(request *ModifyMainSpecRequest) (response *ModifyMainSpecResponse, err error) {
+	response = CreateModifyMainSpecResponse()
 	err = client.DoAction(request, response)
 	return
 }
 
-// ModifyMasterSpecWithChan invokes the foas.ModifyMasterSpec API asynchronously
+// ModifyMainSpecWithChan invokes the foas.ModifyMainSpec API asynchronously
 // api document: https://help.aliyun.com/api/foas/modifymasterspec.html
 // asynchronous document: https://help.aliyun.com/document_detail/66220.html
-func (client *Client) ModifyMasterSpecWithChan(request *ModifyMasterSpecRequest) (<-chan *ModifyMasterSpecResponse, <-chan error) {
-	responseChan := make(chan *ModifyMasterSpecResponse, 1)
+func (client *Client) ModifyMainSpecWithChan(request *ModifyMainSpecRequest) (<-chan *ModifyMainSpecResponse, <-chan error) {
+	responseChan := make(chan *ModifyMainSpecResponse, 1)
 	errChan := make(chan error, 1)
 	err := client.AddAsyncTask(func() {
 		defer close(responseChan)
 		defer close(errChan)
-		response, err := client.ModifyMasterSpec(request)
+		response, err := client.ModifyMainSpec(request)
 		if err != nil {
 			errChan <- err
 		} else {
@@ -52,16 +52,16 @@ func (client *Client) ModifyMasterSpecWithChan(request *ModifyMasterSpecRequest)
 	return responseChan, errChan
 }
 
-// ModifyMasterSpecWithCallback invokes the foas.ModifyMasterSpec API asynchronously
+// ModifyMainSpecWithCallback invokes the foas.ModifyMainSpec API asynchronously
 // api document: https://help.aliyun.com/api/foas/modifymasterspec.html
 // asynchronous document: https://help.aliyun.com/document_detail/66220.html
-func (client *Client) ModifyMasterSpecWithCallback(request *ModifyMasterSpecRequest, callback func(response *ModifyMasterSpecResponse, err error)) <-chan int {
+func (client *Client) ModifyMainSpecWithCallback(request *ModifyMainSpecRequest, callback func(response *ModifyMainSpecResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
-		var response *ModifyMasterSpecResponse
+		var response *ModifyMainSpecResponse
 		var err error
 		defer close(result)
-		response, err = client.ModifyMasterSpec(request)
+		response, err = client.ModifyMainSpec(request)
 		callback(response, err)
 		result <- 1
 	})
@@ -73,32 +73,32 @@ func (client *Client) ModifyMasterSpecWithCallback(request *ModifyMasterSpecRequ
 	return result
 }
 
-// ModifyMasterSpecRequest is the request struct for api ModifyMasterSpec
-type ModifyMasterSpecRequest struct {
+// ModifyMainSpecRequest is the request struct for api ModifyMainSpec
+type ModifyMainSpecRequest struct {
 	*requests.RoaRequest
 	ClusterId         string `position:"Path" name:"clusterId"`
-	MasterTargetModel string `position:"Body" name:"masterTargetModel"`
+	MainTargetModel string `position:"Body" name:"mainTargetModel"`
 }
 
-// ModifyMasterSpecResponse is the response struct for api ModifyMasterSpec
-type ModifyMasterSpecResponse struct {
+// ModifyMainSpecResponse is the response struct for api ModifyMainSpec
+type ModifyMainSpecResponse struct {
 	*responses.BaseResponse
 	RequestId string `json:"RequestId" xml:"RequestId"`
 }
 
-// CreateModifyMasterSpecRequest creates a request to invoke ModifyMasterSpec API
-func CreateModifyMasterSpecRequest() (request *ModifyMasterSpecRequest) {
-	request = &ModifyMasterSpecRequest{
+// CreateModifyMainSpecRequest creates a request to invoke ModifyMainSpec API
+func CreateModifyMainSpecRequest() (request *ModifyMainSpecRequest) {
+	request = &ModifyMainSpecRequest{
 		RoaRequest: &requests.RoaRequest{},
 	}
-	request.InitWithApiInfo("foas", "2018-11-11", "ModifyMasterSpec", "/api/v2/clusters/[clusterId]/specification", "foas", "openAPI")
+	request.InitWithApiInfo("foas", "2018-11-11", "ModifyMainSpec", "/api/v2/clusters/[clusterId]/specification", "foas", "openAPI")
 	request.Method = requests.PUT
 	return
 }
 
-// CreateModifyMasterSpecResponse creates a response to parse from ModifyMasterSpec response
-func CreateModifyMasterSpecResponse() (response *ModifyMasterSpecResponse) {
-	response = &ModifyMasterSpecResponse{
+// CreateModifyMainSpecResponse creates a response to parse from ModifyMainSpec response
+func CreateModifyMainSpecResponse() (response *ModifyMainSpecResponse) {
+	response = &ModifyMainSpecResponse{
 		BaseResponse: &responses.BaseResponse{},
 	}
 	return

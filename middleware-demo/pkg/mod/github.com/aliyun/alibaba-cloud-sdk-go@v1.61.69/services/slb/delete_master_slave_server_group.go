@@ -20,24 +20,24 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/responses"
 )
 
-// DeleteMasterSlaveServerGroup invokes the slb.DeleteMasterSlaveServerGroup API synchronously
+// DeleteMainSubordinateServerGroup invokes the slb.DeleteMainSubordinateServerGroup API synchronously
 // api document: https://help.aliyun.com/api/slb/deletemasterslaveservergroup.html
-func (client *Client) DeleteMasterSlaveServerGroup(request *DeleteMasterSlaveServerGroupRequest) (response *DeleteMasterSlaveServerGroupResponse, err error) {
-	response = CreateDeleteMasterSlaveServerGroupResponse()
+func (client *Client) DeleteMainSubordinateServerGroup(request *DeleteMainSubordinateServerGroupRequest) (response *DeleteMainSubordinateServerGroupResponse, err error) {
+	response = CreateDeleteMainSubordinateServerGroupResponse()
 	err = client.DoAction(request, response)
 	return
 }
 
-// DeleteMasterSlaveServerGroupWithChan invokes the slb.DeleteMasterSlaveServerGroup API asynchronously
+// DeleteMainSubordinateServerGroupWithChan invokes the slb.DeleteMainSubordinateServerGroup API asynchronously
 // api document: https://help.aliyun.com/api/slb/deletemasterslaveservergroup.html
 // asynchronous document: https://help.aliyun.com/document_detail/66220.html
-func (client *Client) DeleteMasterSlaveServerGroupWithChan(request *DeleteMasterSlaveServerGroupRequest) (<-chan *DeleteMasterSlaveServerGroupResponse, <-chan error) {
-	responseChan := make(chan *DeleteMasterSlaveServerGroupResponse, 1)
+func (client *Client) DeleteMainSubordinateServerGroupWithChan(request *DeleteMainSubordinateServerGroupRequest) (<-chan *DeleteMainSubordinateServerGroupResponse, <-chan error) {
+	responseChan := make(chan *DeleteMainSubordinateServerGroupResponse, 1)
 	errChan := make(chan error, 1)
 	err := client.AddAsyncTask(func() {
 		defer close(responseChan)
 		defer close(errChan)
-		response, err := client.DeleteMasterSlaveServerGroup(request)
+		response, err := client.DeleteMainSubordinateServerGroup(request)
 		if err != nil {
 			errChan <- err
 		} else {
@@ -52,16 +52,16 @@ func (client *Client) DeleteMasterSlaveServerGroupWithChan(request *DeleteMaster
 	return responseChan, errChan
 }
 
-// DeleteMasterSlaveServerGroupWithCallback invokes the slb.DeleteMasterSlaveServerGroup API asynchronously
+// DeleteMainSubordinateServerGroupWithCallback invokes the slb.DeleteMainSubordinateServerGroup API asynchronously
 // api document: https://help.aliyun.com/api/slb/deletemasterslaveservergroup.html
 // asynchronous document: https://help.aliyun.com/document_detail/66220.html
-func (client *Client) DeleteMasterSlaveServerGroupWithCallback(request *DeleteMasterSlaveServerGroupRequest, callback func(response *DeleteMasterSlaveServerGroupResponse, err error)) <-chan int {
+func (client *Client) DeleteMainSubordinateServerGroupWithCallback(request *DeleteMainSubordinateServerGroupRequest, callback func(response *DeleteMainSubordinateServerGroupResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
-		var response *DeleteMasterSlaveServerGroupResponse
+		var response *DeleteMainSubordinateServerGroupResponse
 		var err error
 		defer close(result)
-		response, err = client.DeleteMasterSlaveServerGroup(request)
+		response, err = client.DeleteMainSubordinateServerGroup(request)
 		callback(response, err)
 		result <- 1
 	})
@@ -73,8 +73,8 @@ func (client *Client) DeleteMasterSlaveServerGroupWithCallback(request *DeleteMa
 	return result
 }
 
-// DeleteMasterSlaveServerGroupRequest is the request struct for api DeleteMasterSlaveServerGroup
-type DeleteMasterSlaveServerGroupRequest struct {
+// DeleteMainSubordinateServerGroupRequest is the request struct for api DeleteMainSubordinateServerGroup
+type DeleteMainSubordinateServerGroupRequest struct {
 	*requests.RpcRequest
 	AccessKeyId              string           `position:"Query" name:"access_key_id"`
 	ResourceOwnerId          requests.Integer `position:"Query" name:"ResourceOwnerId"`
@@ -82,27 +82,27 @@ type DeleteMasterSlaveServerGroupRequest struct {
 	OwnerAccount             string           `position:"Query" name:"OwnerAccount"`
 	OwnerId                  requests.Integer `position:"Query" name:"OwnerId"`
 	Tags                     string           `position:"Query" name:"Tags"`
-	MasterSlaveServerGroupId string           `position:"Query" name:"MasterSlaveServerGroupId"`
+	MainSubordinateServerGroupId string           `position:"Query" name:"MainSubordinateServerGroupId"`
 }
 
-// DeleteMasterSlaveServerGroupResponse is the response struct for api DeleteMasterSlaveServerGroup
-type DeleteMasterSlaveServerGroupResponse struct {
+// DeleteMainSubordinateServerGroupResponse is the response struct for api DeleteMainSubordinateServerGroup
+type DeleteMainSubordinateServerGroupResponse struct {
 	*responses.BaseResponse
 	RequestId string `json:"RequestId" xml:"RequestId"`
 }
 
-// CreateDeleteMasterSlaveServerGroupRequest creates a request to invoke DeleteMasterSlaveServerGroup API
-func CreateDeleteMasterSlaveServerGroupRequest() (request *DeleteMasterSlaveServerGroupRequest) {
-	request = &DeleteMasterSlaveServerGroupRequest{
+// CreateDeleteMainSubordinateServerGroupRequest creates a request to invoke DeleteMainSubordinateServerGroup API
+func CreateDeleteMainSubordinateServerGroupRequest() (request *DeleteMainSubordinateServerGroupRequest) {
+	request = &DeleteMainSubordinateServerGroupRequest{
 		RpcRequest: &requests.RpcRequest{},
 	}
-	request.InitWithApiInfo("Slb", "2014-05-15", "DeleteMasterSlaveServerGroup", "slb", "openAPI")
+	request.InitWithApiInfo("Slb", "2014-05-15", "DeleteMainSubordinateServerGroup", "slb", "openAPI")
 	return
 }
 
-// CreateDeleteMasterSlaveServerGroupResponse creates a response to parse from DeleteMasterSlaveServerGroup response
-func CreateDeleteMasterSlaveServerGroupResponse() (response *DeleteMasterSlaveServerGroupResponse) {
-	response = &DeleteMasterSlaveServerGroupResponse{
+// CreateDeleteMainSubordinateServerGroupResponse creates a response to parse from DeleteMainSubordinateServerGroup response
+func CreateDeleteMainSubordinateServerGroupResponse() (response *DeleteMainSubordinateServerGroupResponse) {
+	response = &DeleteMainSubordinateServerGroupResponse{
 		BaseResponse: &responses.BaseResponse{},
 	}
 	return

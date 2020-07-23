@@ -32,12 +32,12 @@ type Result struct {
 	Env                       string                     `json:"env" xml:"env"`
 	EnableKibanaPublicNetwork bool                       `json:"enableKibanaPublicNetwork" xml:"enableKibanaPublicNetwork"`
 	WarmNode                  bool                       `json:"warmNode" xml:"warmNode"`
-	AdvancedDedicateMaster    bool                       `json:"advancedDedicateMaster" xml:"advancedDedicateMaster"`
+	AdvancedDedicateMain    bool                       `json:"advancedDedicateMain" xml:"advancedDedicateMain"`
 	EnablePublic              bool                       `json:"enablePublic" xml:"enablePublic"`
 	EsVersion                 string                     `json:"esVersion" xml:"esVersion"`
 	Id                        string                     `json:"id" xml:"id"`
 	PublicPort                int                        `json:"publicPort" xml:"publicPort"`
-	DedicateMaster            bool                       `json:"dedicateMaster" xml:"dedicateMaster"`
+	DedicateMain            bool                       `json:"dedicateMain" xml:"dedicateMain"`
 	Enable                    bool                       `json:"enable" xml:"enable"`
 	QuartzRegex               string                     `json:"quartzRegex" xml:"quartzRegex"`
 	CreateUrl                 string                     `json:"createUrl" xml:"createUrl"`
@@ -57,7 +57,7 @@ type Result struct {
 	EsIPWhitelist             []string                   `json:"esIPWhitelist" xml:"esIPWhitelist"`
 	EsIPBlacklist             []string                   `json:"esIPBlacklist" xml:"esIPBlacklist"`
 	PrivateNetworkIpWhiteList []string                   `json:"privateNetworkIpWhiteList" xml:"privateNetworkIpWhiteList"`
-	MasterSpec                []string                   `json:"masterSpec" xml:"masterSpec"`
+	MainSpec                []string                   `json:"mainSpec" xml:"mainSpec"`
 	PublicIpWhitelist         []string                   `json:"publicIpWhitelist" xml:"publicIpWhitelist"`
 	ClientNodeSpec            []string                   `json:"clientNodeSpec" xml:"clientNodeSpec"`
 	EsVersions                []string                   `json:"esVersions" xml:"esVersions"`
@@ -73,13 +73,13 @@ type Result struct {
 	ClientNodeConfiguration   ClientNodeConfiguration    `json:"clientNodeConfiguration" xml:"clientNodeConfiguration"`
 	WarmNodeProperties        WarmNodeProperties         `json:"warmNodeProperties" xml:"warmNodeProperties"`
 	NetworkConfig             NetworkConfig              `json:"networkConfig" xml:"networkConfig"`
-	MasterConfiguration       MasterConfiguration        `json:"masterConfiguration" xml:"masterConfiguration"`
+	MainConfiguration       MainConfiguration        `json:"mainConfiguration" xml:"mainConfiguration"`
 	KibanaNodeProperties      KibanaNodeProperties       `json:"kibanaNodeProperties" xml:"kibanaNodeProperties"`
 	ValidateResult            ValidateResult             `json:"validateResult" xml:"validateResult"`
 	ClientNodeAmountRange     ClientNodeAmountRange      `json:"clientNodeAmountRange" xml:"clientNodeAmountRange"`
 	SupportVersions           []CategoryEntity           `json:"supportVersions" xml:"supportVersions"`
 	ZoneInfos                 []ZoneInfo                 `json:"zoneInfos" xml:"zoneInfos"`
-	MasterDiskList            []Disk                     `json:"masterDiskList" xml:"masterDiskList"`
+	MainDiskList            []Disk                     `json:"mainDiskList" xml:"mainDiskList"`
 	EsVersionsLatestList      []EsVersionsLatestListItem `json:"esVersionsLatestList" xml:"esVersionsLatestList"`
 	EndpointList              []Endpoint                 `json:"endpointList" xml:"endpointList"`
 	NodeSpecList              []NodeSpecListItem         `json:"nodeSpecList" xml:"nodeSpecList"`

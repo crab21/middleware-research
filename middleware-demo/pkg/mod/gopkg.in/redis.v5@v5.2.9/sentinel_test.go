@@ -12,7 +12,7 @@ var _ = Describe("Sentinel", func() {
 
 	BeforeEach(func() {
 		client = redis.NewFailoverClient(&redis.FailoverOptions{
-			MasterName:    sentinelName,
+			MainName:    sentinelName,
 			SentinelAddrs: []string{":" + sentinelPort},
 		})
 		Expect(client.FlushDb().Err()).NotTo(HaveOccurred())
@@ -23,39 +23,39 @@ var _ = Describe("Sentinel", func() {
 	})
 
 	It("should facilitate failover", func() {
-		// Set value on master, verify
-		err := client.Set("foo", "master", 0).Err()
+		// Set value on main, verify
+		err := client.Set("foo", "main", 0).Err()
 		Expect(err).NotTo(HaveOccurred())
 
-		val, err := sentinelMaster.Get("foo").Result()
+		val, err := sentinelMain.Get("foo").Result()
 		Expect(err).NotTo(HaveOccurred())
-		Expect(val).To(Equal("master"))
+		Expect(val).To(Equal("main"))
 
 		// Wait until replicated
 		Eventually(func() string {
-			return sentinelSlave1.Get("foo").Val()
-		}, "1s", "100ms").Should(Equal("master"))
+			return sentinelSubordinate1.Get("foo").Val()
+		}, "1s", "100ms").Should(Equal("main"))
 		Eventually(func() string {
-			return sentinelSlave2.Get("foo").Val()
-		}, "1s", "100ms").Should(Equal("master"))
+			return sentinelSubordinate2.Get("foo").Val()
+		}, "1s", "100ms").Should(Equal("main"))
 
-		// Wait until slaves are picked up by sentinel.
+		// Wait until subordinates are picked up by sentinel.
 		Eventually(func() string {
 			return sentinel.Info().Val()
-		}, "10s", "100ms").Should(ContainSubstring("slaves=2"))
+		}, "10s", "100ms").Should(ContainSubstring("subordinates=2"))
 
-		// Kill master.
-		sentinelMaster.Shutdown()
+		// Kill main.
+		sentinelMain.Shutdown()
 		Eventually(func() error {
-			return sentinelMaster.Ping().Err()
+			return sentinelMain.Ping().Err()
 		}, "5s", "100ms").Should(HaveOccurred())
 
-		// Wait for Redis sentinel to elect new master.
+		// Wait for Redis sentinel to elect new main.
 		Eventually(func() string {
-			return sentinelSlave1.Info().Val() + sentinelSlave2.Info().Val()
-		}, "30s", "1s").Should(ContainSubstring("role:master"))
+			return sentinelSubordinate1.Info().Val() + sentinelSubordinate2.Info().Val()
+		}, "30s", "1s").Should(ContainSubstring("role:main"))
 
-		// Check that client picked up new master.
+		// Check that client picked up new main.
 		Eventually(func() error {
 			return client.Get("foo").Err()
 		}, "5s", "100ms").ShouldNot(HaveOccurred())
@@ -65,7 +65,7 @@ var _ = Describe("Sentinel", func() {
 		Expect(client.Close()).NotTo(HaveOccurred())
 
 		client = redis.NewFailoverClient(&redis.FailoverOptions{
-			MasterName:    sentinelName,
+			MainName:    sentinelName,
 			SentinelAddrs: []string{":" + sentinelPort},
 			DB:            1,
 		})

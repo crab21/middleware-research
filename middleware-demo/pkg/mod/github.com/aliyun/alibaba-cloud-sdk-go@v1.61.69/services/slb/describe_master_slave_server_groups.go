@@ -20,24 +20,24 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/responses"
 )
 
-// DescribeMasterSlaveServerGroups invokes the slb.DescribeMasterSlaveServerGroups API synchronously
+// DescribeMainSubordinateServerGroups invokes the slb.DescribeMainSubordinateServerGroups API synchronously
 // api document: https://help.aliyun.com/api/slb/describemasterslaveservergroups.html
-func (client *Client) DescribeMasterSlaveServerGroups(request *DescribeMasterSlaveServerGroupsRequest) (response *DescribeMasterSlaveServerGroupsResponse, err error) {
-	response = CreateDescribeMasterSlaveServerGroupsResponse()
+func (client *Client) DescribeMainSubordinateServerGroups(request *DescribeMainSubordinateServerGroupsRequest) (response *DescribeMainSubordinateServerGroupsResponse, err error) {
+	response = CreateDescribeMainSubordinateServerGroupsResponse()
 	err = client.DoAction(request, response)
 	return
 }
 
-// DescribeMasterSlaveServerGroupsWithChan invokes the slb.DescribeMasterSlaveServerGroups API asynchronously
+// DescribeMainSubordinateServerGroupsWithChan invokes the slb.DescribeMainSubordinateServerGroups API asynchronously
 // api document: https://help.aliyun.com/api/slb/describemasterslaveservergroups.html
 // asynchronous document: https://help.aliyun.com/document_detail/66220.html
-func (client *Client) DescribeMasterSlaveServerGroupsWithChan(request *DescribeMasterSlaveServerGroupsRequest) (<-chan *DescribeMasterSlaveServerGroupsResponse, <-chan error) {
-	responseChan := make(chan *DescribeMasterSlaveServerGroupsResponse, 1)
+func (client *Client) DescribeMainSubordinateServerGroupsWithChan(request *DescribeMainSubordinateServerGroupsRequest) (<-chan *DescribeMainSubordinateServerGroupsResponse, <-chan error) {
+	responseChan := make(chan *DescribeMainSubordinateServerGroupsResponse, 1)
 	errChan := make(chan error, 1)
 	err := client.AddAsyncTask(func() {
 		defer close(responseChan)
 		defer close(errChan)
-		response, err := client.DescribeMasterSlaveServerGroups(request)
+		response, err := client.DescribeMainSubordinateServerGroups(request)
 		if err != nil {
 			errChan <- err
 		} else {
@@ -52,16 +52,16 @@ func (client *Client) DescribeMasterSlaveServerGroupsWithChan(request *DescribeM
 	return responseChan, errChan
 }
 
-// DescribeMasterSlaveServerGroupsWithCallback invokes the slb.DescribeMasterSlaveServerGroups API asynchronously
+// DescribeMainSubordinateServerGroupsWithCallback invokes the slb.DescribeMainSubordinateServerGroups API asynchronously
 // api document: https://help.aliyun.com/api/slb/describemasterslaveservergroups.html
 // asynchronous document: https://help.aliyun.com/document_detail/66220.html
-func (client *Client) DescribeMasterSlaveServerGroupsWithCallback(request *DescribeMasterSlaveServerGroupsRequest, callback func(response *DescribeMasterSlaveServerGroupsResponse, err error)) <-chan int {
+func (client *Client) DescribeMainSubordinateServerGroupsWithCallback(request *DescribeMainSubordinateServerGroupsRequest, callback func(response *DescribeMainSubordinateServerGroupsResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
-		var response *DescribeMasterSlaveServerGroupsResponse
+		var response *DescribeMainSubordinateServerGroupsResponse
 		var err error
 		defer close(result)
-		response, err = client.DescribeMasterSlaveServerGroups(request)
+		response, err = client.DescribeMainSubordinateServerGroups(request)
 		callback(response, err)
 		result <- 1
 	})
@@ -73,8 +73,8 @@ func (client *Client) DescribeMasterSlaveServerGroupsWithCallback(request *Descr
 	return result
 }
 
-// DescribeMasterSlaveServerGroupsRequest is the request struct for api DescribeMasterSlaveServerGroups
-type DescribeMasterSlaveServerGroupsRequest struct {
+// DescribeMainSubordinateServerGroupsRequest is the request struct for api DescribeMainSubordinateServerGroups
+type DescribeMainSubordinateServerGroupsRequest struct {
 	*requests.RpcRequest
 	AccessKeyId          string           `position:"Query" name:"access_key_id"`
 	ResourceOwnerId      requests.Integer `position:"Query" name:"ResourceOwnerId"`
@@ -86,25 +86,25 @@ type DescribeMasterSlaveServerGroupsRequest struct {
 	LoadBalancerId       string           `position:"Query" name:"LoadBalancerId"`
 }
 
-// DescribeMasterSlaveServerGroupsResponse is the response struct for api DescribeMasterSlaveServerGroups
-type DescribeMasterSlaveServerGroupsResponse struct {
+// DescribeMainSubordinateServerGroupsResponse is the response struct for api DescribeMainSubordinateServerGroups
+type DescribeMainSubordinateServerGroupsResponse struct {
 	*responses.BaseResponse
 	RequestId               string                  `json:"RequestId" xml:"RequestId"`
-	MasterSlaveServerGroups MasterSlaveServerGroups `json:"MasterSlaveServerGroups" xml:"MasterSlaveServerGroups"`
+	MainSubordinateServerGroups MainSubordinateServerGroups `json:"MainSubordinateServerGroups" xml:"MainSubordinateServerGroups"`
 }
 
-// CreateDescribeMasterSlaveServerGroupsRequest creates a request to invoke DescribeMasterSlaveServerGroups API
-func CreateDescribeMasterSlaveServerGroupsRequest() (request *DescribeMasterSlaveServerGroupsRequest) {
-	request = &DescribeMasterSlaveServerGroupsRequest{
+// CreateDescribeMainSubordinateServerGroupsRequest creates a request to invoke DescribeMainSubordinateServerGroups API
+func CreateDescribeMainSubordinateServerGroupsRequest() (request *DescribeMainSubordinateServerGroupsRequest) {
+	request = &DescribeMainSubordinateServerGroupsRequest{
 		RpcRequest: &requests.RpcRequest{},
 	}
-	request.InitWithApiInfo("Slb", "2014-05-15", "DescribeMasterSlaveServerGroups", "slb", "openAPI")
+	request.InitWithApiInfo("Slb", "2014-05-15", "DescribeMainSubordinateServerGroups", "slb", "openAPI")
 	return
 }
 
-// CreateDescribeMasterSlaveServerGroupsResponse creates a response to parse from DescribeMasterSlaveServerGroups response
-func CreateDescribeMasterSlaveServerGroupsResponse() (response *DescribeMasterSlaveServerGroupsResponse) {
-	response = &DescribeMasterSlaveServerGroupsResponse{
+// CreateDescribeMainSubordinateServerGroupsResponse creates a response to parse from DescribeMainSubordinateServerGroups response
+func CreateDescribeMainSubordinateServerGroupsResponse() (response *DescribeMainSubordinateServerGroupsResponse) {
+	response = &DescribeMainSubordinateServerGroupsResponse{
 		BaseResponse: &responses.BaseResponse{},
 	}
 	return
