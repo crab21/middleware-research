@@ -62,7 +62,7 @@ type Options struct {
 	// When minus value is set, then idle check is disabled.
 	IdleCheckFrequency time.Duration
 
-	// Enables read only queries on slave nodes.
+	// Enables read only queries on subordinate nodes.
 	ReadOnly bool
 
 	// TLS Config to use. When set TLS will be negotiated.

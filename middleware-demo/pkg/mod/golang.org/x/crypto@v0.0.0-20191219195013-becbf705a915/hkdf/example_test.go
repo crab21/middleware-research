@@ -14,13 +14,13 @@ import (
 	"golang.org/x/crypto/hkdf"
 )
 
-// Usage example that expands one master secret into three other
+// Usage example that expands one main secret into three other
 // cryptographically secure keys.
 func Example_usage() {
 	// Underlying hash function for HMAC.
 	hash := sha256.New
 
-	// Cryptographically secure master secret.
+	// Cryptographically secure main secret.
 	secret := []byte{0x00, 0x01, 0x02, 0x03} // i.e. NOT this.
 
 	// Non-secret salt, optional (can be nil).

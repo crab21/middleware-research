@@ -13,7 +13,7 @@
 // limitations under the License.
 
 // Command version checks that the version string matches the latest Git tag.
-// This is expected to pass only on the master branch.
+// This is expected to pass only on the main branch.
 package main
 
 import (

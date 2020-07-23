@@ -20,24 +20,24 @@ import (
 	"github.com/aliyun/alibaba-cloud-sdk-go/sdk/responses"
 )
 
-// DescribeMasterSlaveServerGroupAttribute invokes the slb.DescribeMasterSlaveServerGroupAttribute API synchronously
+// DescribeMainSubordinateServerGroupAttribute invokes the slb.DescribeMainSubordinateServerGroupAttribute API synchronously
 // api document: https://help.aliyun.com/api/slb/describemasterslaveservergroupattribute.html
-func (client *Client) DescribeMasterSlaveServerGroupAttribute(request *DescribeMasterSlaveServerGroupAttributeRequest) (response *DescribeMasterSlaveServerGroupAttributeResponse, err error) {
-	response = CreateDescribeMasterSlaveServerGroupAttributeResponse()
+func (client *Client) DescribeMainSubordinateServerGroupAttribute(request *DescribeMainSubordinateServerGroupAttributeRequest) (response *DescribeMainSubordinateServerGroupAttributeResponse, err error) {
+	response = CreateDescribeMainSubordinateServerGroupAttributeResponse()
 	err = client.DoAction(request, response)
 	return
 }
 
-// DescribeMasterSlaveServerGroupAttributeWithChan invokes the slb.DescribeMasterSlaveServerGroupAttribute API asynchronously
+// DescribeMainSubordinateServerGroupAttributeWithChan invokes the slb.DescribeMainSubordinateServerGroupAttribute API asynchronously
 // api document: https://help.aliyun.com/api/slb/describemasterslaveservergroupattribute.html
 // asynchronous document: https://help.aliyun.com/document_detail/66220.html
-func (client *Client) DescribeMasterSlaveServerGroupAttributeWithChan(request *DescribeMasterSlaveServerGroupAttributeRequest) (<-chan *DescribeMasterSlaveServerGroupAttributeResponse, <-chan error) {
-	responseChan := make(chan *DescribeMasterSlaveServerGroupAttributeResponse, 1)
+func (client *Client) DescribeMainSubordinateServerGroupAttributeWithChan(request *DescribeMainSubordinateServerGroupAttributeRequest) (<-chan *DescribeMainSubordinateServerGroupAttributeResponse, <-chan error) {
+	responseChan := make(chan *DescribeMainSubordinateServerGroupAttributeResponse, 1)
 	errChan := make(chan error, 1)
 	err := client.AddAsyncTask(func() {
 		defer close(responseChan)
 		defer close(errChan)
-		response, err := client.DescribeMasterSlaveServerGroupAttribute(request)
+		response, err := client.DescribeMainSubordinateServerGroupAttribute(request)
 		if err != nil {
 			errChan <- err
 		} else {
@@ -52,16 +52,16 @@ func (client *Client) DescribeMasterSlaveServerGroupAttributeWithChan(request *D
 	return responseChan, errChan
 }
 
-// DescribeMasterSlaveServerGroupAttributeWithCallback invokes the slb.DescribeMasterSlaveServerGroupAttribute API asynchronously
+// DescribeMainSubordinateServerGroupAttributeWithCallback invokes the slb.DescribeMainSubordinateServerGroupAttribute API asynchronously
 // api document: https://help.aliyun.com/api/slb/describemasterslaveservergroupattribute.html
 // asynchronous document: https://help.aliyun.com/document_detail/66220.html
-func (client *Client) DescribeMasterSlaveServerGroupAttributeWithCallback(request *DescribeMasterSlaveServerGroupAttributeRequest, callback func(response *DescribeMasterSlaveServerGroupAttributeResponse, err error)) <-chan int {
+func (client *Client) DescribeMainSubordinateServerGroupAttributeWithCallback(request *DescribeMainSubordinateServerGroupAttributeRequest, callback func(response *DescribeMainSubordinateServerGroupAttributeResponse, err error)) <-chan int {
 	result := make(chan int, 1)
 	err := client.AddAsyncTask(func() {
-		var response *DescribeMasterSlaveServerGroupAttributeResponse
+		var response *DescribeMainSubordinateServerGroupAttributeResponse
 		var err error
 		defer close(result)
-		response, err = client.DescribeMasterSlaveServerGroupAttribute(request)
+		response, err = client.DescribeMainSubordinateServerGroupAttribute(request)
 		callback(response, err)
 		result <- 1
 	})
@@ -73,8 +73,8 @@ func (client *Client) DescribeMasterSlaveServerGroupAttributeWithCallback(reques
 	return result
 }
 
-// DescribeMasterSlaveServerGroupAttributeRequest is the request struct for api DescribeMasterSlaveServerGroupAttribute
-type DescribeMasterSlaveServerGroupAttributeRequest struct {
+// DescribeMainSubordinateServerGroupAttributeRequest is the request struct for api DescribeMainSubordinateServerGroupAttribute
+type DescribeMainSubordinateServerGroupAttributeRequest struct {
 	*requests.RpcRequest
 	AccessKeyId              string           `position:"Query" name:"access_key_id"`
 	ResourceOwnerId          requests.Integer `position:"Query" name:"ResourceOwnerId"`
@@ -82,31 +82,31 @@ type DescribeMasterSlaveServerGroupAttributeRequest struct {
 	OwnerAccount             string           `position:"Query" name:"OwnerAccount"`
 	OwnerId                  requests.Integer `position:"Query" name:"OwnerId"`
 	Tags                     string           `position:"Query" name:"Tags"`
-	MasterSlaveServerGroupId string           `position:"Query" name:"MasterSlaveServerGroupId"`
+	MainSubordinateServerGroupId string           `position:"Query" name:"MainSubordinateServerGroupId"`
 }
 
-// DescribeMasterSlaveServerGroupAttributeResponse is the response struct for api DescribeMasterSlaveServerGroupAttribute
-type DescribeMasterSlaveServerGroupAttributeResponse struct {
+// DescribeMainSubordinateServerGroupAttributeResponse is the response struct for api DescribeMainSubordinateServerGroupAttribute
+type DescribeMainSubordinateServerGroupAttributeResponse struct {
 	*responses.BaseResponse
 	RequestId                  string                                                             `json:"RequestId" xml:"RequestId"`
 	LoadBalancerId             string                                                             `json:"LoadBalancerId" xml:"LoadBalancerId"`
-	MasterSlaveServerGroupId   string                                                             `json:"MasterSlaveServerGroupId" xml:"MasterSlaveServerGroupId"`
-	MasterSlaveServerGroupName string                                                             `json:"MasterSlaveServerGroupName" xml:"MasterSlaveServerGroupName"`
-	MasterSlaveBackendServers  MasterSlaveBackendServersInDescribeMasterSlaveServerGroupAttribute `json:"MasterSlaveBackendServers" xml:"MasterSlaveBackendServers"`
+	MainSubordinateServerGroupId   string                                                             `json:"MainSubordinateServerGroupId" xml:"MainSubordinateServerGroupId"`
+	MainSubordinateServerGroupName string                                                             `json:"MainSubordinateServerGroupName" xml:"MainSubordinateServerGroupName"`
+	MainSubordinateBackendServers  MainSubordinateBackendServersInDescribeMainSubordinateServerGroupAttribute `json:"MainSubordinateBackendServers" xml:"MainSubordinateBackendServers"`
 }
 
-// CreateDescribeMasterSlaveServerGroupAttributeRequest creates a request to invoke DescribeMasterSlaveServerGroupAttribute API
-func CreateDescribeMasterSlaveServerGroupAttributeRequest() (request *DescribeMasterSlaveServerGroupAttributeRequest) {
-	request = &DescribeMasterSlaveServerGroupAttributeRequest{
+// CreateDescribeMainSubordinateServerGroupAttributeRequest creates a request to invoke DescribeMainSubordinateServerGroupAttribute API
+func CreateDescribeMainSubordinateServerGroupAttributeRequest() (request *DescribeMainSubordinateServerGroupAttributeRequest) {
+	request = &DescribeMainSubordinateServerGroupAttributeRequest{
 		RpcRequest: &requests.RpcRequest{},
 	}
-	request.InitWithApiInfo("Slb", "2014-05-15", "DescribeMasterSlaveServerGroupAttribute", "slb", "openAPI")
+	request.InitWithApiInfo("Slb", "2014-05-15", "DescribeMainSubordinateServerGroupAttribute", "slb", "openAPI")
 	return
 }
 
-// CreateDescribeMasterSlaveServerGroupAttributeResponse creates a response to parse from DescribeMasterSlaveServerGroupAttribute response
-func CreateDescribeMasterSlaveServerGroupAttributeResponse() (response *DescribeMasterSlaveServerGroupAttributeResponse) {
-	response = &DescribeMasterSlaveServerGroupAttributeResponse{
+// CreateDescribeMainSubordinateServerGroupAttributeResponse creates a response to parse from DescribeMainSubordinateServerGroupAttribute response
+func CreateDescribeMainSubordinateServerGroupAttributeResponse() (response *DescribeMainSubordinateServerGroupAttributeResponse) {
+	response = &DescribeMainSubordinateServerGroupAttributeResponse{
 		BaseResponse: &responses.BaseResponse{},
 	}
 	return

@@ -30,17 +30,17 @@ const (
 )
 
 const (
-	sentinelName       = "mymaster"
-	sentinelMasterPort = "8123"
-	sentinelSlave1Port = "8124"
-	sentinelSlave2Port = "8125"
+	sentinelName       = "mymain"
+	sentinelMainPort = "8123"
+	sentinelSubordinate1Port = "8124"
+	sentinelSubordinate2Port = "8125"
 	sentinelPort       = "8126"
 )
 
 var (
 	redisMain                                                *redisProcess
 	ringShard1, ringShard2                                   *redisProcess
-	sentinelMaster, sentinelSlave1, sentinelSlave2, sentinel *redisProcess
+	sentinelMain, sentinelSubordinate1, sentinelSubordinate2, sentinel *redisProcess
 )
 
 var cluster = &clusterScenario{
@@ -62,18 +62,18 @@ var _ = BeforeSuite(func() {
 	ringShard2, err = startRedis(ringShard2Port)
 	Expect(err).NotTo(HaveOccurred())
 
-	sentinelMaster, err = startRedis(sentinelMasterPort)
+	sentinelMain, err = startRedis(sentinelMainPort)
 	Expect(err).NotTo(HaveOccurred())
 
-	sentinel, err = startSentinel(sentinelPort, sentinelName, sentinelMasterPort)
+	sentinel, err = startSentinel(sentinelPort, sentinelName, sentinelMainPort)
 	Expect(err).NotTo(HaveOccurred())
 
-	sentinelSlave1, err = startRedis(
-		sentinelSlave1Port, "--slaveof", "127.0.0.1", sentinelMasterPort)
+	sentinelSubordinate1, err = startRedis(
+		sentinelSubordinate1Port, "--subordinateof", "127.0.0.1", sentinelMainPort)
 	Expect(err).NotTo(HaveOccurred())
 
-	sentinelSlave2, err = startRedis(
-		sentinelSlave2Port, "--slaveof", "127.0.0.1", sentinelMasterPort)
+	sentinelSubordinate2, err = startRedis(
+		sentinelSubordinate2Port, "--subordinateof", "127.0.0.1", sentinelMainPort)
 	Expect(err).NotTo(HaveOccurred())
 
 	Expect(startCluster(cluster)).NotTo(HaveOccurred())
@@ -86,9 +86,9 @@ var _ = AfterSuite(func() {
 	Expect(ringShard2.Close()).NotTo(HaveOccurred())
 
 	Expect(sentinel.Close()).NotTo(HaveOccurred())
-	Expect(sentinelSlave1.Close()).NotTo(HaveOccurred())
-	Expect(sentinelSlave2.Close()).NotTo(HaveOccurred())
-	Expect(sentinelMaster.Close()).NotTo(HaveOccurred())
+	Expect(sentinelSubordinate1.Close()).NotTo(HaveOccurred())
+	Expect(sentinelSubordinate2.Close()).NotTo(HaveOccurred())
+	Expect(sentinelMain.Close()).NotTo(HaveOccurred())
 
 	Expect(stopCluster(cluster)).NotTo(HaveOccurred())
 })
@@ -284,7 +284,7 @@ func startRedis(port string, args ...string) (*redisProcess, error) {
 	return &redisProcess{process, client}, err
 }
 
-func startSentinel(port, masterName, masterPort string) (*redisProcess, error) {
+func startSentinel(port, mainName, mainPort string) (*redisProcess, error) {
 	dir, err := redisDir(port)
 	if err != nil {
 		return nil, err
@@ -299,10 +299,10 @@ func startSentinel(port, masterName, masterPort string) (*redisProcess, error) {
 		return nil, err
 	}
 	for _, cmd := range []*redis.StatusCmd{
-		redis.NewStatusCmd("SENTINEL", "MONITOR", masterName, "127.0.0.1", masterPort, "1"),
-		redis.NewStatusCmd("SENTINEL", "SET", masterName, "down-after-milliseconds", "500"),
-		redis.NewStatusCmd("SENTINEL", "SET", masterName, "failover-timeout", "1000"),
-		redis.NewStatusCmd("SENTINEL", "SET", masterName, "parallel-syncs", "1"),
+		redis.NewStatusCmd("SENTINEL", "MONITOR", mainName, "127.0.0.1", mainPort, "1"),
+		redis.NewStatusCmd("SENTINEL", "SET", mainName, "down-after-milliseconds", "500"),
+		redis.NewStatusCmd("SENTINEL", "SET", mainName, "failover-timeout", "1000"),
+		redis.NewStatusCmd("SENTINEL", "SET", mainName, "parallel-syncs", "1"),
 	} {
 		client.Process(cmd)
 		if err := cmd.Err(); err != nil {

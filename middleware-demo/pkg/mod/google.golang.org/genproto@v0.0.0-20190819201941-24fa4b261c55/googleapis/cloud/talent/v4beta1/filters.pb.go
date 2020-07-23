@@ -607,7 +607,7 @@ type ProfileQuery struct {
 	// [EducationFilter.negated][google.cloud.talent.v4beta1.EducationFilter.negated]
 	// is specified, the result won't contain profiles that match the educations.
 	//
-	// For example, search for profiles with a master degree.
+	// For example, search for profiles with a main degree.
 	EducationFilters []*EducationFilter `protobuf:"bytes,5,rep,name=education_filters,json=educationFilters,proto3" json:"education_filters,omitempty"`
 	// Optional. Skill filter specifies skill of profiles to match on.
 	//

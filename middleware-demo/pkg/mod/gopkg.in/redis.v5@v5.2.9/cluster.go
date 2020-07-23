@@ -27,10 +27,10 @@ type ClusterOptions struct {
 	// Default is 16.
 	MaxRedirects int
 
-	// Enables read queries for a connection to a Redis Cluster slave node.
+	// Enables read queries for a connection to a Redis Cluster subordinate node.
 	ReadOnly bool
 
-	// Enables routing read-only queries to the closest master or slave node.
+	// Enables routing read-only queries to the closest main or subordinate node.
 	RouteByLatency bool
 
 	// Following options are copied from Options struct.
@@ -261,7 +261,7 @@ func newClusterState(nodes *clusterNodes, slots []ClusterSlot) (*clusterState, e
 	return &c, nil
 }
 
-func (c *clusterState) slotMasterNode(slot int) (*clusterNode, error) {
+func (c *clusterState) slotMainNode(slot int) (*clusterNode, error) {
 	nodes := c.slotNodes(slot)
 	if len(nodes) > 0 {
 		return nodes[0], nil
@@ -269,7 +269,7 @@ func (c *clusterState) slotMasterNode(slot int) (*clusterNode, error) {
 	return c.nodes.Random()
 }
 
-func (c *clusterState) slotSlaveNode(slot int) (*clusterNode, error) {
+func (c *clusterState) slotSubordinateNode(slot int) (*clusterNode, error) {
 	nodes := c.slotNodes(slot)
 	switch len(nodes) {
 	case 0:
@@ -277,20 +277,20 @@ func (c *clusterState) slotSlaveNode(slot int) (*clusterNode, error) {
 	case 1:
 		return nodes[0], nil
 	case 2:
-		if slave := nodes[1]; !slave.Loading() {
-			return slave, nil
+		if subordinate := nodes[1]; !subordinate.Loading() {
+			return subordinate, nil
 		}
 		return nodes[0], nil
 	default:
-		var slave *clusterNode
+		var subordinate *clusterNode
 		for i := 0; i < 10; i++ {
 			n := rand.Intn(len(nodes)-1) + 1
-			slave = nodes[n]
-			if !slave.Loading() {
+			subordinate = nodes[n]
+			if !subordinate.Loading() {
 				break
 			}
 		}
-		return slave, nil
+		return subordinate, nil
 	}
 }
 
@@ -397,11 +397,11 @@ func (c *ClusterClient) cmdSlotAndNode(state *clusterState, cmd Cmder) (int, *cl
 			return slot, node, err
 		}
 
-		node, err := state.slotSlaveNode(slot)
+		node, err := state.slotSubordinateNode(slot)
 		return slot, node, err
 	}
 
-	node, err := state.slotMasterNode(slot)
+	node, err := state.slotMainNode(slot)
 	return slot, node, err
 }
 
@@ -411,7 +411,7 @@ func (c *ClusterClient) Watch(fn func(*Tx) error, keys ...string) error {
 	var node *clusterNode
 	var err error
 	if state != nil && len(keys) > 0 {
-		node, err = state.slotMasterNode(hashtag.Slot(keys[0]))
+		node, err = state.slotMainNode(hashtag.Slot(keys[0]))
 	} else {
 		node, err = c.nodes.Random()
 	}
@@ -454,7 +454,7 @@ func (c *ClusterClient) Process(cmd Cmder) error {
 			return nil
 		}
 
-		// If slave is loading - read from master.
+		// If subordinate is loading - read from main.
 		if c.opt.ReadOnly && internal.IsLoadingError(err) {
 			node.loading = time.Now()
 			continue
@@ -476,8 +476,8 @@ func (c *ClusterClient) Process(cmd Cmder) error {
 		if moved || ask {
 			state := c.state()
 			if state != nil && slot >= 0 {
-				master, _ := state.slotMasterNode(slot)
-				if moved && (master == nil || master.Client.getAddr() != addr) {
+				main, _ := state.slotMainNode(slot)
+				if moved && (main == nil || main.Client.getAddr() != addr) {
 					c.lazyReloadSlots()
 				}
 			}
@@ -530,9 +530,9 @@ func (c *ClusterClient) ForEachNode(fn func(client *Client) error) error {
 	}
 }
 
-// ForEachMaster concurrently calls the fn on each master node in the cluster.
+// ForEachMain concurrently calls the fn on each main node in the cluster.
 // It returns the first error if any.
-func (c *ClusterClient) ForEachMaster(fn func(client *Client) error) error {
+func (c *ClusterClient) ForEachMain(fn func(client *Client) error) error {
 	state := c.state()
 	if state == nil {
 		return errNilClusterState
@@ -546,11 +546,11 @@ func (c *ClusterClient) ForEachMaster(fn func(client *Client) error) error {
 			continue
 		}
 
-		master := nodes[0]
-		if _, ok := visited[master]; ok {
+		main := nodes[0]
+		if _, ok := visited[main]; ok {
 			continue
 		}
-		visited[master] = struct{}{}
+		visited[main] = struct{}{}
 
 		wg.Add(1)
 		go func(node *clusterNode) {
@@ -562,7 +562,7 @@ func (c *ClusterClient) ForEachMaster(fn func(client *Client) error) error {
 				default:
 				}
 			}
-		}(master)
+		}(main)
 	}
 	wg.Wait()
 
@@ -817,7 +817,7 @@ func (c *ClusterClient) txPipelineExec(cmds []Cmder) error {
 	}
 
 	for slot, cmds := range cmdsMap {
-		node, err := state.slotMasterNode(slot)
+		node, err := state.slotMainNode(slot)
 		if err != nil {
 			setCmdsErr(cmds, err)
 			continue

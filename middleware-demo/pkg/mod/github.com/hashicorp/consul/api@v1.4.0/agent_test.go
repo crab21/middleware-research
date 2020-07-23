@@ -1345,7 +1345,7 @@ func TestAPI_AgentUpdateToken(t *testing.T) {
 			t.Fatalf("err: %v", err)
 		}
 
-		if _, err := agent.UpdateACLAgentMasterToken("root", nil); err != nil {
+		if _, err := agent.UpdateACLAgentMainToken("root", nil); err != nil {
 			t.Fatalf("err: %v", err)
 		}
 
@@ -1364,7 +1364,7 @@ func TestAPI_AgentUpdateToken(t *testing.T) {
 			t.Fatalf("err: %v", err)
 		}
 
-		if _, err := agent.UpdateAgentMasterACLToken("root", nil); err != nil {
+		if _, err := agent.UpdateAgentMainACLToken("root", nil); err != nil {
 			t.Fatalf("err: %v", err)
 		}
 
@@ -1392,7 +1392,7 @@ func TestAPI_AgentUpdateToken(t *testing.T) {
 			switch req.URL.Path {
 			case "/v1/agent/token/default",
 				"/v1/agent/token/agent",
-				"/v1/agent/token/agent_master",
+				"/v1/agent/token/agent_main",
 				"/v1/agent/token/replication":
 				req.URL.Host = notfound.URL[7:] // Strip off "http://".
 			default:
@@ -1417,7 +1417,7 @@ func TestAPI_AgentUpdateToken(t *testing.T) {
 		_, err = agent.UpdateAgentACLToken("root", nil)
 		require.NoError(t, err)
 
-		_, err = agent.UpdateAgentMasterACLToken("root", nil)
+		_, err = agent.UpdateAgentMainACLToken("root", nil)
 		require.NoError(t, err)
 
 		_, err = agent.UpdateReplicationACLToken("root", nil)
@@ -1448,7 +1448,7 @@ func TestAPI_AgentUpdateToken(t *testing.T) {
 		_, err = agent.UpdateAgentACLToken("root", nil)
 		require.Error(t, err)
 
-		_, err = agent.UpdateAgentMasterACLToken("root", nil)
+		_, err = agent.UpdateAgentMainACLToken("root", nil)
 		require.Error(t, err)
 
 		_, err = agent.UpdateReplicationACLToken("root", nil)

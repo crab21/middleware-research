@@ -26,7 +26,7 @@ import (
 	"github.com/coreos/etcd/version"
 )
 
-// TestReleaseUpgrade ensures that changes to master branch does not affect
+// TestReleaseUpgrade ensures that changes to main branch does not affect
 // upgrade from latest etcd releases.
 func TestReleaseUpgrade(t *testing.T) {
 	lastReleaseBinary := binDir + "/etcd-last-release"

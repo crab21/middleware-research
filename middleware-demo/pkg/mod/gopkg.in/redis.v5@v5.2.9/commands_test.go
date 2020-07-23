@@ -172,14 +172,14 @@ var _ = Describe("Commands", func() {
 			}, "10s").Should(Equal("OK"))
 		})
 
-		It("should SlaveOf", func() {
-			slaveOf := client.SlaveOf("localhost", "8888")
-			Expect(slaveOf.Err()).NotTo(HaveOccurred())
-			Expect(slaveOf.Val()).To(Equal("OK"))
+		It("should SubordinateOf", func() {
+			subordinateOf := client.SubordinateOf("localhost", "8888")
+			Expect(subordinateOf.Err()).NotTo(HaveOccurred())
+			Expect(subordinateOf.Val()).To(Equal("OK"))
 
-			slaveOf = client.SlaveOf("NO", "ONE")
-			Expect(slaveOf.Err()).NotTo(HaveOccurred())
-			Expect(slaveOf.Val()).To(Equal("OK"))
+			subordinateOf = client.SubordinateOf("NO", "ONE")
+			Expect(subordinateOf.Err()).NotTo(HaveOccurred())
+			Expect(subordinateOf.Val()).To(Equal("OK"))
 		})
 
 		It("should Time", func() {
