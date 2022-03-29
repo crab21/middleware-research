@@ -19,7 +19,7 @@ require (
 	github.com/fastly/go-utils v0.0.0-20180712184237-d95a45783239 // indirect
 	github.com/fatih/color v1.9.0
 	github.com/go-errors/errors v1.0.1 // indirect
-	github.com/gogo/protobuf v1.2.0
+	github.com/gogo/protobuf v1.3.2
 	github.com/golang/protobuf v1.3.2
 	github.com/grandcat/zeroconf v1.0.0
 	github.com/hashicorp/consul/api v1.4.0 // indirect
